@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.constants
+
+if __name__ == "__main__":
+
+    sample_num = 2000  # Sampling points
+    total_time = 2  # Sampling number
+    sampling_rate = sample_num / total_time  # 取樣頻率
+
+    fs = [(20, 12), (100, 5), (250, 2)]  # sin 波的頻率與振幅組合。 (Hz, Amp)
+    noise_mag = 2
+
+    time = np.linspace(0, total_time, sample_num, endpoint=False)
+
+    vib_data = [amp * np.sin(2 * scipy.constants.pi * hz * time) for hz, amp in fs]
+
+    max_time = int(sample_num / 4)
+
+    plt.figure(figsize=(12, 8))
+    # Show seperated signal
+    for idx, vib in enumerate(vib_data):
+        plt.subplot(2, 2, idx + 1)
+        plt.plot(time[0:max_time], vib[0:max_time])
+        plt.xlabel('time')
+        plt.ylabel('vib_' + str(idx))
+        plt.ylim((-24, 24))
+
+    vib = sum(vib_data) + np.random.normal(0, noise_mag, sample_num)  # Add noise
+
+    plt.subplot(2, 2, 4)
+    plt.plot(time[0:max_time], vib[0:max_time])
+    plt.xlabel('time')
+    plt.ylabel('vib(with noise)')
+    plt.ylim((-24, 24))
+    plt.show()
