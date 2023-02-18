@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.constants
+from scipy.fftpack import fft
 
 if __name__ == "__main__":
 
@@ -33,4 +34,14 @@ if __name__ == "__main__":
     plt.xlabel('time')
     plt.ylabel('vib(with noise)')
     plt.ylim((-24, 24))
+    plt.show()
+
+    fd = np.linspace(0.0, sampling_rate, int(sample_num), endpoint=False)
+
+    vib_fft = fft(vib)
+    mag = 2/sample_num * np.abs(vib_fft) # Magnitude
+
+    plt.plot(fd[0:int(sample_num/2)], mag[0:int(sample_num/2)])
+    plt.xlabel('Hz')
+    plt.ylabel('Mag')
     plt.show()
