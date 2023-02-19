@@ -13,8 +13,13 @@ if __name__ == "__main__":
     noise_mag = 2
 
     time = np.linspace(0, total_time, sample_num, endpoint=False)
+    # vib_data = [amp * np.sin(2 * scipy.constants.pi * hz * time) for hz, amp in fs]
+    vib_data = []
+    for hz, amp in fs:
+        vobj = amp * np.sin(2 * scipy.constants.pi * hz * time)
+        vib_data.append(vobj)
 
-    vib_data = [amp * np.sin(2 * scipy.constants.pi * hz * time) for hz, amp in fs]
+    # vib_data = [amp * np.sin(2 * scipy.constants.pi * hz * time) for hz, amp in fs]
 
     max_time = int(sample_num / 4)
 
