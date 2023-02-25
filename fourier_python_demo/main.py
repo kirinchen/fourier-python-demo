@@ -51,12 +51,13 @@ if __name__ == "__main__":
     vib_fft = fft(vib)
     mag = 2/sample_num * np.abs(vib_fft) # Magnitude
 
-    plt.plot(fd[0:int(sample_num/2)], mag[0:int(sample_num/2)])
+    plt.plot(fd[1:int(sample_num/2)], mag[1:int(sample_num/2)])
     plt.xlabel('Hz')
     plt.ylabel('Mag')
-    plt.ylim((3, 4))
+    plt.ylim((3, 3.000001))
     plt.show()
 
+    vib_fft.append(vib_fft)
     vib_re = np.real(ifft(vib_fft))  # Real part of complex number
 
     plt.plot(time[0:max_time], vib_re[0:max_time])
