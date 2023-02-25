@@ -22,7 +22,7 @@ if __name__ == "__main__":
     for hz, amp in fs:
         vobj = amp * np.sin(2 * scipy.constants.pi * hz * time)
         vib_data.append(vobj)
-    vib_data.append(data_supplier_service.gen_x_pow())
+    vib_data.append(data_supplier_service.gen_close_sample())
     # vib_data = [amp * np.sin(2 * scipy.constants.pi * hz * time) for hz, amp in fs]
 
     # max_time = int(sample_num / 4)
@@ -35,9 +35,9 @@ if __name__ == "__main__":
         plt.plot(time[0:max_time], vib[0:max_time])
         plt.xlabel('time')
         plt.ylabel('vib_' + str(idx))
-        plt.ylim((-24, 24))
+        plt.ylim((3, 4))
 
-    vib = sum(vib_data) + np.random.normal(0, noise_mag, sample_num)  # Add noise
+    # vib = sum(vib_data) + np.random.normal(0, noise_mag, sample_num)  # Add noise
 
     plt.subplot(2, 2, 4)
     plt.plot(time[0:max_time], vib[0:max_time])
@@ -54,10 +54,11 @@ if __name__ == "__main__":
     plt.plot(fd[0:int(sample_num/2)], mag[0:int(sample_num/2)])
     plt.xlabel('Hz')
     plt.ylabel('Mag')
+    plt.ylim((3, 4))
     plt.show()
 
     vib_re = np.real(ifft(vib_fft))  # Real part of complex number
 
     plt.plot(time[0:max_time], vib_re[0:max_time])
-    plt.ylim((-24, 24))
+    plt.ylim((3, 4))
     plt.show()
